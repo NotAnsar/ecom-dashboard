@@ -13,3 +13,6 @@ body {
 body {
 	background-color: rgb(156 163 175);
 }
+input {
+	font-size: inherit;
+}

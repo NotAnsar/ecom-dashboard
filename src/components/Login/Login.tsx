@@ -1,7 +1,10 @@
+import DashboardSvg from '../../assets/undraw_web_shopping_re_owap.svg';
 const Login = () => {
 	return (
 		<div className='w-full grid grid-cols-1 h-screen text-white sm:grid-cols-7'>
-			<div className='bg-[#141414] col-span-4'></div>
+			<div className='bg-[#141414] col-span-4  items-center justify-center hidden sm:flex'>
+				<img src={DashboardSvg} className='sm:w-11/12 h-5/6' alt='Your SVG' />
+			</div>
 			<div className='col-span-3 bg-[#191919] grid items-center'>
 				<div className='mx-auto w-5/6 my-4'>
 					<h1 className='text-white text-4xl mb-3'>Sign In</h1>

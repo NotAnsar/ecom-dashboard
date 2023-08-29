@@ -1,5 +1,37 @@
 import DashboardSvg from '../../assets/undraw_web_shopping_re_owap.svg';
-const Login = () => {
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { makeRequest } from '../../axios';
+
+interface FormData {
+	email: string;
+	password: string;
+}
+
+const Login: React.FC = () => {
+	const [formData, setFormData] = useState<FormData>({
+		email: '',
+		password: '',
+	});
+
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const value: string = e.target.value;
+		const name: string = e.target.name;
+
+		setFormData((prev) => ({ ...prev, [name]: value }));
+	};
+	const formHandler = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		loginUser();
+		async function loginUser() {
+			try {
+				const res = await makeRequest.post('/auth/login', formData);
+				console.log(res.data);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	};
 	return (
 		<div className='w-full grid grid-cols-1 h-screen text-white sm:grid-cols-7'>
 			<div className='bg-[#141414] col-span-4  items-center justify-center hidden sm:flex'>
@@ -9,7 +41,8 @@ const Login = () => {
 				<div className='mx-auto w-5/6 my-4'>
 					<h1 className='text-white text-4xl mb-3'>Sign In</h1>
 					<p className='text-[#bbb] mb-4'>Lorem ipsum dolor sit amet.</p>
-					<form className='flex flex-col 	'>
+
+					<form className='flex flex-col' onSubmit={formHandler}>
 						<div className='mb-6'>
 							<label
 								htmlFor='email'
@@ -19,10 +52,12 @@ const Login = () => {
 							</label>
 							<input
 								type='email'
-								id='email'
+								name='email'
 								className='bg-[#242424] bg-transparent border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:border-solid focus:border block w-full p-2.5 '
 								placeholder='john.doe@company.com'
 								required
+								onChange={handleChange}
+								value={formData.email}
 							/>
 							{/* <p className='mt-2 text-sm text-green-600 dark:text-green-500'>
 								<span className='font-medium'>Well done!</span> Some success
@@ -42,7 +77,10 @@ const Login = () => {
 							</label>
 							<input
 								type='password'
-								id='password'
+								name='password'
+								minLength={8}
+								value={formData.password}
+								onChange={handleChange}
 								className='bg-[#242424] bg-transparent border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
 								placeholder='•••••••••'
 								required

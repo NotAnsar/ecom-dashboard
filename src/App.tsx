@@ -13,7 +13,11 @@ import Brands from './components/Brands/Brands';
 import SideNav from './components/SideNav/SideNav';
 import Login from './components/Login/Login';
 
+// import { makeRequest } from './axios';
+
 function App() {
+	// makeRequest.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<>
